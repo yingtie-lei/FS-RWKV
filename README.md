@@ -54,7 +54,7 @@ Yingtie Lei¹, Zimeng Li²*, Chi-Man Pun¹, Yupeng Liu³'⁴, and Xuhang Chen¹'
 
 ```bash
 # Clone the repository
-git clone https://github.com/yourusername/FS-RWKV.git
+git clone https://github.com/yingtie-lei/FS-RWKV.git
 cd FS-RWKV
 
 # Create conda environment
@@ -97,10 +97,7 @@ dataset/
 ├── train/
 │   ├── 3T/          # 3T MRI images (input)
 │   └── 7T/          # 7T MRI images (target)
-├── val/
-│   ├── 3T/
-│   └── 7T/
-└── test/
+└── val/
     ├── 3T/
     └── 7T/
 ```
@@ -120,8 +117,8 @@ Create text files that pair 3T and 7T images:
 
 ### Supported Datasets
 
-- **UNC Dataset**: [Chen et al., Scientific Data 2023](https://www.nature.com/articles/s41597-023-02400-6)
-- **BNU Dataset**: [Chu et al., Scientific Data 2025](https://www.nature.com/articles/s41597-025-04091-5)
+- **UNC Dataset**: [Chen et al., Scientific Data 2023](https://www.nature.com/articles/s41597-023-02400-y)
+- **BNU Dataset**: [Chu et al., Scientific Data 2025](https://www.nature.com/articles/s41597-025-04586-9)
 
 ## 🚀 Training
 
@@ -159,24 +156,6 @@ python train.py \
 | `--lr` | Initial learning rate | 2e-4 |
 | `--img_size` | Image resolution | 256 |
 | `--seed` | Random seed for reproducibility | 3407 |
-
-### Training Features
-
-- **Data Augmentation**: Horizontal/vertical flip, rotation, transpose, mixup, cutmix
-- **Optimizer**: AdamW with β₁=0.9, β₂=0.999
-- **Scheduler**: Cosine annealing with T_max=200, η_min=1e-6
-- **Loss Function**: Smooth L1 + SSIM (λ=0.4) + Edge Loss (λ=0.3)
-- **Checkpointing**: Saves best models based on SSIM, PSNR, and validation loss
-
-### Training Logs
-
-Training logs are saved to `{checkpoint_dir}/train_log.txt`:
-```
-epoch,train_loss,val_loss,psnr,ssim
-1,0.1234,0.0987,20.5432,0.7123
-2,0.1100,0.0912,21.2345,0.7345
-...
-```
 
 ## 🧪 Testing
 
@@ -218,33 +197,6 @@ Average SSIM: 0.7258 ± 0.0123
 Average RMSE: 0.0898 ± 0.0045
 Average LPIPS: 0.1234 ± 0.0056
 ```
-
-## 🏗️ Model Architecture
-
-### Key Components
-
-1. **FS-RWKV Block**
-   - Frequency Spatial Omnidirectional-Shift (FSO-Shift)
-   - Spatial Mix with Bi-WKV attention
-   - Channel Mix with Squared ReLU
-
-2. **Structural Fidelity Enhancement Block (SFEB)**
-   - Discrete Wavelet Transform (DWT)
-   - Multi-scale processing for low/high frequencies
-   - LSConv for low-frequency features
-   - Depthwise separable convolutions for high-frequency details
-
-3. **U-Net Architecture**
-   - 4 encoder levels: [48, 96, 192, 384] channels
-   - 4 decoder levels with skip connections
-   - SFEB modules between encoder-decoder
-
-### Model Variants
-
-- `model/RWKV.py`: Full FS-RWKV model
-- `model/RWKV_wo_dwtnet.py`: Without SFEB (ablation study)
-- `model/RWKV_wo_shift.py`: Without FSO-Shift (ablation study)
-- `model/RWKV_wo_both.py`: Without both components (ablation study)
 
 ## 📝 Citation
 

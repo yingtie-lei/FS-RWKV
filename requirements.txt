@@ -1,0 +1,27 @@
+# Core dependencies
+torch>=2.0.0
+torchvision>=0.15.0
+torchaudio>=2.0.0
+
+# Deep learning libraries
+timm>=0.9.0
+einops>=0.6.0
+pytorch-wavelets>=1.3.0
+
+# Metrics and evaluation
+torchmetrics>=0.11.0
+lpips>=0.1.4
+
+# Image processing
+Pillow>=9.0.0
+opencv-python>=4.7.0
+albumentations>=1.3.0
+
+# Utilities
+numpy>=1.23.0
+tqdm>=4.65.0
+matplotlib>=3.7.0
+scipy>=1.10.0
+
+# Others
+pyyaml>=6.0
